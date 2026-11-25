@@ -173,14 +173,15 @@ footer{color:var(--mute);font-size:13px;text-align:center;padding:0 16px 30px}
 const G=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
 /* Waze：只用坐标（ll=），不加 navigate=yes，打开后只放标记，要自己按 Go */
 const W=(lat,lng)=>({p:'ll='+lat+','+lng});
-const wLink=w=>'https://www.waze.com/ul?'+w.p;
+const wLink=w=>w.u||'https://www.waze.com/ul?'+w.p;
+const WL=u=>({u});
 const D={
 d1:[
  {t:'2:00pm',n:'午餐：乐园饭店（煮炒）',p:['必点：招牌豆腐、咖喱鱼肉、芙蓉蛋','星期三休息'],must:'午餐 2:15pm 就收，2pm 到的话就直接去乐轩',
   a:'2, Tingkat Kerjasama 4, Taman Kerjasama, Bukit Tengah, 14000 Bukit Mertajam',g:G('Look Yuen Restaurant Bukit Mertajam'),w:W(5.361256,100.425588),
   alt:{n:'后备：乐轩 Lok Hin（Auto City，11am–11pm，就在大道旁）',a:'Unit FM-A1, Plot 3, Jalan Perusahaan, Auto-City, 13600 Perai',g:'https://maps.app.goo.gl/zLsqkNwHtSqZgYBWA',w:W(5.3375526,100.4278359)}},
  {t:'2:45pm',n:'过槟城大桥',p:['约 30 分钟'],drive:1},
- {t:'3:15pm',n:'入住 Urban Suites，休息',p:['休息约 1.5 小时'],a:'Urban Suites, Jalan Ahmad Nor, 11600 Jelutong, Pulau Pinang（1B 座）',g:G('Urban Suites Jalan Ahmad Nor Penang'),w:W(5.3888834,100.3168974),x:'bnb'},
+ {t:'3:15pm',n:'入住 Urban Suites，休息',p:['休息约 1.5 小时'],a:'1, Lintang Hajjah Rehmah 1, Jelutong, 11600 George Town, Pulau Pinang（Urban Suites 1B 座）',g:G('1, Lintang Hajjah Rehmah 1, Jelutong, 11600 George Town, Pulau Pinang'),w:W(5.3888834,100.3168974),x:'bnb'},
  {t:'4:45pm',e:'到 7:45pm',n:'升旗山：坐缆车上山看日落',p:['开车去下站约 20 分钟','停车：入口左边的 building 有付费停车场（第 1 小时 RM2，之后每小时 RM1），也可以停路边','5:15pm 坐缆车上山，山顶走走，约 7pm 看日落'],must:'7:20pm 下山，日落后排队最久',
   a:'Penang Hill Lower Station, Jalan Bukit Bendera, 11500 Ayer Itam',g:G('Penang Hill Lower Station'),w:W(5.4082091,100.2771278),x:'fares'},
  {t:'8:15pm',n:'晚餐：義蓮 Green Tomyam（鱼头米粉、青冬阴）',p:['6–10pm'],rm:'只收现金',
@@ -189,7 +190,7 @@ d1:[
  {t:'9:45pm',n:'回住处',p:[],drive:1}
 ],
 d2:[
- {t:'9:30am',n:'早餐：七条路巴刹',p:['南来鸭肉粿条汤、赤脚炒粿条、娘惹糕'],a:'Cecil Street Food Court, 40-48 Lebuh Cecil, 10300 George Town',g:G('Cecil Street Market Penang'),w:W(5.4074633,100.3287001)},
+ {t:'9:30am',n:'早餐：七条路巴刹',p:['南来鸭肉粿条汤、赤脚炒粿条、娘惹糕'],a:'Cecil Street Food Court, 40-48 Lebuh Cecil, 10300 George Town',g:G('Cecil Street Market Penang'),w:WL('https://waze.com/ul/hw0zqg0360')},
  {t:'11:00am',n:'回住处休息，换正装',p:['带 2 张邀请卡']},
  {t:'12:15pm',n:'两辆车出发去午餐',p:[],drive:1},
  {t:'12:40pm',n:'午餐：客家面',p:['店名、地址待补。Waze 请用 Google 地图里看到的店名搜索'],must:'1:40pm 一定要出发',g:'https://maps.app.goo.gl/JxtkJmf3PFQywgE39'},
@@ -200,14 +201,14 @@ d2:[
  {t:'5:30pm',n:'7 人一起拍照',p:['拍完还袍和卡']},
  {t:'6:30pm',n:'回住处换衣服',p:['约 25 分钟'],drive:1},
  {t:'7:15pm',n:'晚餐：Van Praagh 星期五夜市',p:['离住处约 5 分钟。没有停车场，开 1 辆车或叫 Grab','推荐炒粿条'],
-  a:'52, Jalan Van Praagh, Taman Continental, 11600 George Town',g:G('Pasar Malam Van Praagh Jelutong'),w:W(5.3967941,100.3137602)},
+  a:'52, Jalan Van Praagh, Taman Continental, 11600 George Town',g:G('Pasar Malam Van Praagh Jelutong'),w:WL('https://waze.com/ul/hw0zqdwqnx')},
  {t:'9:30pm',n:'回住处',p:[],drive:1}
 ],
 d3:[
  {t:'11:00am',n:'退房，行李上车，直接出门',p:['11am 退房时间到']},
  {t:'11:15am',n:'早午餐：Zim Sum 点心',p:['6:30am–1:30pm，星期二休息。吃约 45 分钟'],a:'62, Jalan Macalister, 10400 George Town',g:G('Zim Sum Jalan Macalister Penang'),w:W(5.4150098,100.3271176)},
  {t:'12:00pm',n:'槟城州立博物馆分馆',p:['点心店对面，走路过去','11/30 前免费。后面交通馆有人力车和旧升旗山缆车车厢。逛约 40 分钟'],
-  a:'57, Jalan Macalister, 10400 George Town',g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:W(5.4150027,100.3254963)},
+  a:'57, Jalan Macalister, 10400 George Town',g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:WL('https://waze.com/ul/hw0zqg6b88')},
  {t:'12:45pm',n:'买手信：Him Heang',p:['豆沙饼、马蹄酥。一个人进去买就好','星期六 9am–4pm（星期日休息）'],a:'162A, Jalan Burma, 10050 George Town',g:G('Him Heang Jalan Burma Penang'),w:W(5.4240952,100.3213496)},
  {t:'1:05pm',n:'卧佛寺 Wat Chayamangkalaram',p:['免费，约 30 分钟。进殿要脱鞋，对面是缅甸寺'],a:'17, Lorong Burma, Pulau Tikus, 10250 George Town',g:G('Wat Chayamangkalaram Penang'),w:W(5.4316735,100.3138109)},
  {t:'1:35pm',n:'过桥去大山脚',p:['约 1 小时 10 分钟'],must:'1:35pm 一定要出发',drive:1},
