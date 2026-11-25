@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>槟城家庭旅行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* VOICE: warm, practical family handbook for the road, read on a phone in a moving car
+   IDEA: a stack of day tickets, like the Penang Hill funicular ticket the family will hold
+   PICTURE: the schedule itself, big hanging times, with a small hill-and-sea strip in the header
+   COLOUR and TYPE: deep sea teal ground for the header, warm white paper, shophouse coral accent; Noto Sans SC
+   LAYOUT: one column, sticky day tabs, each stop a ticket row with Waze as the main button */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbf8f2,#0f1c1e);--paper:light-dark(#ffffff,#162628);--ink:light-dark(#152326,#eef3f1);
+--mute:light-dark(#5b6b6e,#a3b4b5);--line:light-dark(#e6e0d4,#2a3c3f);--sea:light-dark(#0b5d63,#3fb3b0);
+--seaD:#0b4a4f;--coral:light-dark(#d9543c,#ff8a70);--sand:light-dark(#f3ead8,#223335);--warn:light-dark(#fff2d6,#3a2f17)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Noto Sans SC",system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+header{background:var(--seaD);color:#f3faf8;padding:22px max(5vw,16px) 0;position:relative;overflow:hidden}
+header h1{font-size:clamp(28px,7vw,40px);line-height:1.1;margin:0 0 6px;font-weight:900;text-wrap:balance}
+header p{margin:0;max-width:34em;color:#cfe6e2;font-size:15px}
+header svg{display:block;width:100%;height:70px;margin-top:14px}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:6px;padding:10px max(5vw,12px);overflow-x:auto}
+nav a{flex:none;text-decoration:none;padding:9px 14px;border-radius:999px;font-size:15px;font-weight:500;color:var(--mute);min-height:44px;display:flex;align-items:center}
+nav a[aria-current=true]{background:var(--sea);color:#fff}
+main{max-width:720px;margin:0 auto;padding:18px max(4vw,12px) 60px}
+section{display:none}section.on{display:block}
+h2{font-size:24px;line-height:1.2;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 14px;font-size:15px}
+.note{background:var(--warn);border-radius:12px;padding:10px 14px;margin:0 0 14px;font-size:15px}
+.stop{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:0 14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 14px 14px 12px;margin-bottom:10px;position:relative}
+
+.t{font-weight:700;font-size:17px;line-height:1.2;color:var(--sea);white-space:nowrap;padding-top:1px}
+.t small{display:block;font-weight:500;font-size:13px;color:var(--mute);margin-top:2px}
+.body{padding-left:14px;border-left:2px dashed var(--line)}
+.body>b{font-size:17px;display:block;line-height:1.35}
+.body p{margin:4px 0 0;color:var(--mute);font-size:15px}
+.body p.must{color:var(--coral);font-weight:700}
+.go{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.go a{display:flex;justify-content:center;align-items:center;gap:6px;white-space:nowrap;min-height:44px;padding:0 14px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px}
+.go .wz{background:var(--sea);color:#fff}.go .gm{border:1px solid var(--line);color:var(--ink)}
+.go svg{width:18px;height:18px}
+.alt{margin-top:8px;font-size:14px;color:var(--mute)}
+.alt .go{margin-top:6px}
+.drive .body b{font-weight:500;font-size:16px}
+.drive{background:transparent;border-style:dashed}
+.xh{font-weight:700;color:var(--ink);margin:14px 0 6px!important;font-size:15px}
+.extra table{font-size:14px}.extra table{table-layout:fixed}.extra th,.extra td{padding:8px 6px}.extra th:first-child,.extra td:first-child{width:34%}.bnb{margin-top:12px;background:var(--sand);border-radius:12px;padding:10px 12px;color:var(--ink)}.bnb p{color:var(--ink)!important}.bnb ol{margin:4px 0 6px;padding-left:20px;font-size:15px}.bnb .xh{margin-top:0!important}
+.rm{margin-top:8px;font-size:14px;background:var(--warn);border-radius:10px;padding:8px 10px;color:var(--ink)}
+h3{font-size:18px;margin:22px 0 8px}
+table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:var(--sand);font-weight:700;font-size:14px}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.total{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.total div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.total span{display:block;font-size:13px;color:var(--mute)}
+.total strong{font-size:clamp(22px,6vw,28px);color:var(--sea)}
+.check{list-style:none;padding:0;margin:0}
+.check li{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;min-height:44px;cursor:pointer}
+.check input{width:22px;height:22px;flex:none;accent-color:var(--sea);margin-top:2px}
+.check input:checked+span{color:var(--mute);text-decoration:line-through}
+.tel{font-weight:700;color:var(--sea);white-space:nowrap}
+footer{color:var(--mute);font-size:13px;text-align:center;padding:0 16px 30px}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){section.on{animation:in .25s ease}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+@media(max-width:420px){.stop{gap:0 10px;padding:12px 10px}.body{padding-left:10px}.t{font-size:15px}.go a{padding:0 8px;font-size:14px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>槟城家庭旅行<br>11/26–11/28</h1>
+  <p>7 人、2 辆车，住日落洞 Urban Suites（星期四 3:15pm 入住，星期六 11am 退房）。重点是星期五 2pm 到 USM 登记毕业典礼。</p>
+  <svg viewBox="0 0 400 70" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b4a4f"/><stop offset="1" stop-color="#14686c"/></linearGradient></defs>
+    <rect width="400" height="70" fill="url(#sky)"/>
+    <circle cx="300" cy="34" r="13" fill="#ffb36b" opacity=".9"/>
+    <path d="M0 52 C60 40 90 14 150 10 C205 7 230 34 280 38 C330 42 360 30 400 36 V70 H0Z" fill="#0e3c40"/>
+    <path d="M150 10 L210 52" stroke="#cfe6e2" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <rect x="171" y="22" width="12" height="8" rx="2" fill="#d9543c" transform="rotate(35 177 26)"/>
+    <path d="M0 58 C80 54 140 62 220 58 C300 54 340 60 400 57 V70 H0Z" fill="#fbf8f2" opacity=".12"/>
+  </svg>
+</header>
+
+<nav id="tabs" aria-label="日程">
+  <a href="#prep">出发前</a><a href="#day1">第 1 天</a><a href="#day2">第 2 天</a><a href="#day3">第 3 天</a><a href="#sos">紧急</a>
+</nav>
+
+<main>
+<section id="prep">
+  <h2>出发前</h2>
+  <p class="sub">打勾会记在这台手机上。</p>
+    <ul class="check" data-list="prep3">
+    <li><label><input type="checkbox"><span>两位司机手机装 <b>Penang Smart Parking</b> app（岛上路边停车用，RM0.60 / 30 分钟）</span></label></li>
+    <li><label><input type="checkbox"><span>11/27（五）<b>9am–3pm</b> 去 <b>CS Lounge</b> 拿 <b>CS Yearbook</b></span></label></li>
+  </ul>
+</section>
+
+<section id="day1">
+  <h2>第 1 天 · 11/26（四）</h2>
+  <p class="sub">升旗山日落</p>
+  <div id="d1"></div>
+</section>
+
+<section id="day2">
+  <h2>第 2 天 · 11/27（五）</h2>
+  <p class="sub">毕业典礼</p>
+  <p class="note"><b>Reminder：9am–3pm 要去 CS Lounge 拿 CS Yearbook。</b><br>2pm 必须到 DTSP 登记。只有毕业生和 2 位嘉宾进厅，12 岁以下不能进。</p>
+  <div id="d2"></div>
+</section>
+
+<section id="day3">
+  <h2>第 3 天 · 11/28（六）</h2>
+  <p class="sub">博物馆、卧佛、去怡保</p>
+  <p class="note">行李整个早上都在车上：车停在看得见的地方，贵重物品随身带。</p>
+  <div id="d3"></div>
+</section>
+
+<section id="sos">
+  <h2>紧急联络</h2>
+  <table>
+    <tbody>
+      <tr><td>警察、救护车、消防</td><td class="n"><a class="tel" href="tel:999">999</a><br><small>手机也可打 112</small></td></tr>
+      <tr><td>USM 毕业典礼秘书处</td><td class="n"><span class="tel">04-653 6490 / 6495</span></td></tr>
+      <tr><td>Urban Suites Admin</td><td class="n"><a class="tel" href="tel:+60124785627">012-478 5627</a><br><a class="tel" href="tel:+60194785666">019-478 5666</a></td></tr>
+      <tr><td>医院</td><td class="n">槟城中央医院<br><small>Penang General Hospital，乔治市</small></td></tr>
+    </tbody>
+  </table>
+</section>
+<template id="fares">  <p class="xh">缆车票价（RM）</p>
+  <table>
+    <thead><tr><th>票种</th><th class="n">MyKad Normal Lane</th><th class="n">MyKad Express Lane</th></tr></thead>
+    <tbody>
+      <tr><td>成人 来回</td><td class="n">16</td><td class="n">40</td></tr>
+      <tr><td>成人 单程</td><td class="n">8</td><td class="n">25</td></tr>
+      <tr><td>老人 60+</td><td class="n">8</td><td class="n">20</td></tr>
+      <tr><td>小孩 4–12 岁</td><td class="n">8</td><td class="n">20</td></tr>
+      <tr><td>残障人士</td><td class="n">免费</td><td class="n">免费</td></tr>
+    </tbody>
+  </table>
+  <p class="sub" style="margin-top:8px">外国人（Normal / Express Lane）：成人来回 40 / 80，单程 25 / 50；老人 30 / 60；小孩 20 / 40。</p>
+  <div class="total">
+    <div><span>7 人 MyKad Normal Lane 来回</span><strong>RM96</strong></div>
+    <div><span>7 人 MyKad Express Lane 来回</span><strong>RM240</strong></div>
+  </div>
+  <p class="sub" style="margin-top:6px">按 5 个成人、1 个 60 岁以上老人、1 个小孩计算。</p>
+</template>
+<template id="bnb"><div class="bnb">
+  <p class="xh">Airbnb 入住资料</p>
+  <p><b>单位：</b>B 座 15 楼 1B-1505</p>
+  <ol>
+    <li>在 <b>1B 大堂</b>向保安登记</li>
+    <li>1B 大堂信箱 <b>1B-1505</b> 拿钥匙（密码看 Airbnb 讯息）</li>
+    <li>停车：<b>8 楼（Level 08）</b>，车位 <b>22</b>。请按地上的车位号码停</li>
+  </ol>
+  <p><b>门卡：</b>1 张出入卡（搭电梯）、1 张停车场卡（车子进出）、1 把钥匙</p>
+  <p><b>WiFi：</b>名称和密码看 Airbnb 讯息</p>
+  <p><b>Admin：</b><a class="tel" href="tel:+60124785627">012-478 5627</a> / <a class="tel" href="tel:+60194785666">019-478 5666</a></p>
+</div></template>
+</main>
+<footer></footer>
+
+<script>
+{
+const G=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const W=q=>({p:'q='+encodeURIComponent(q)+'&navigate=yes',c:q});
+const isAndroid=/Android/i.test(navigator.userAgent);
+const wLink=w=>{const web='https://www.waze.com/ul?'+w.p;return web};
+const D={
+d1:[
+ {t:'2:00pm',n:'午餐：乐园饭店（煮炒）',p:['必点：招牌豆腐、咖喱鱼肉、芙蓉蛋','星期三休息'],must:'午餐 2:15pm 就收，2pm 到的话就直接去乐轩',g:G('Look Yuen Restaurant Bukit Mertajam'),w:W('Restoran Look Yuen Bukit Mertajam'),
+  alt:{n:'后备：乐轩 Lok Hin（Auto City，11am–11pm，就在大道旁）',g:'https://maps.app.goo.gl/zLsqkNwHtSqZgYBWA',w:W('Lok Hin Auto City Juru Perai')}},
+ {t:'2:45pm',n:'过槟城大桥',p:['约 30 分钟'],drive:1},
+ {t:'3:15pm',n:'入住 Urban Suites，休息',p:['休息约 1.5 小时'],g:G('Urban Suites Jalan Ahmad Nor Penang'),w:W('Urban Suites Jalan Ahmad Nor Penang'),x:'bnb'},
+ {t:'4:45pm',e:'到 7:45pm',n:'升旗山：坐缆车上山看日落',p:['开车去下站约 20 分钟','停车：入口左边的 building 有付费停车场（第 1 小时 RM2，之后每小时 RM1），也可以停路边','5:15pm 坐缆车上山，山顶走走，约 7pm 看日落'],must:'7:20pm 下山，日落后排队最久',g:G('Penang Hill Lower Station'),w:W('Penang Hill Lower Station'),x:'fares'},
+ {t:'8:15pm',n:'晚餐：義蓮 Green Tomyam（鱼头米粉、青冬阴）',p:['6–10pm'],rm:'只收现金',g:'https://maps.app.goo.gl/gBdW2Yi4mZxRaDgk7',w:W('Medan Renong Jalan Tun Syed Sheh Barakbah George Town')},
+ {t:'9:15pm',n:'Esplanade 海边散步，钟楼、市政厅夜景',p:[]},
+ {t:'9:45pm',n:'回住处',p:[],drive:1}
+],
+d2:[
+ {t:'9:30am',n:'早餐：七条路巴刹',p:['南来鸭肉粿条汤、赤脚炒粿条、娘惹糕'],g:G('Cecil Street Market Penang'),w:W('Cecil Street Market Penang')},
+ {t:'11:00am',n:'回住处休息，换正装',p:['带 2 张邀请卡']},
+ {t:'12:15pm',n:'两辆车出发去午餐',p:[],drive:1},
+ {t:'12:40pm',n:'午餐：客家面',p:['Waze 请用店名搜索'],must:'1:40pm 一定要出发',g:'https://maps.app.goo.gl/JxtkJmf3PFQywgE39'},
+ {t:'1:50pm',n:'到达 DTSP',p:['送毕业生 + 2 位嘉宾进去，USM 难停车','2:00pm 登记','3:30–5:30pm 毕业典礼'],g:G('Dewan Tuanku Syed Putra USM'),w:W('Dewan Tuanku Syed Putra USM'),rm:'嘉宾中途不能离场，不能带花或礼物进厅'},
+ {t:'1:50pm',e:'到 5:05pm',n:'另外 4 人：槟城数码图书馆',p:['开车约 10–15 分钟。有冷气、儿童区、cafe'],must:'5:05pm 出发回 USM',g:G('Penang Digital Library Jalan Masjid Negeri'),w:W('Penang Digital Library')},
+ {t:'5:30pm',n:'7 人一起拍照',p:['拍完还袍和卡']},
+ {t:'6:30pm',n:'回住处换衣服',p:['约 25 分钟'],drive:1},
+ {t:'7:15pm',n:'晚餐：Van Praagh 星期五夜市',p:['离住处约 5 分钟。没有停车场，开 1 辆车或叫 Grab','推荐炒粿条'],g:G('Pasar Malam Van Praagh Jelutong'),w:W('Jalan Van Praagh Jelutong')},
+ {t:'9:30pm',n:'回住处',p:[],drive:1}
+],
+d3:[
+ {t:'11:00am',n:'退房，行李上车，直接出门',p:['11am 退房时间到']},
+ {t:'11:15am',n:'早午餐：Zim Sum 点心',p:['6:30am–1:30pm，星期二休息。吃约 45 分钟'],g:G('Zim Sum Jalan Macalister Penang'),w:W('Zim Sum Jalan Macalister')},
+ {t:'12:00pm',n:'槟城州立博物馆分馆',p:['点心店对面，走路过去','11/30 前免费。后面交通馆有人力车和旧升旗山缆车车厢。逛约 40 分钟'],g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:{p:'ll=5.4150027,100.3254963&navigate=yes',c:'Penang State Museum 57 Jalan Macalister'}},
+ {t:'12:45pm',n:'买手信：Him Heang',p:['豆沙饼、马蹄酥。一个人进去买就好'],g:G('Him Heang Jalan Burma Penang'),w:W('Him Heang Jalan Burma')},
+ {t:'1:05pm',n:'卧佛寺 Wat Chayamangkalaram',p:['免费，约 30 分钟。进殿要脱鞋，对面是缅甸寺'],g:G('Wat Chayamangkalaram Penang'),w:W('Wat Chayamangkalaram')},
+ {t:'1:35pm',n:'过桥去大山脚',p:['约 1 小时 10 分钟'],must:'1:35pm 一定要出发',drive:1},
+ {t:'2:45pm',n:'午餐：Sentosa 芋头饭（Sentosa Corner 咖啡店）',p:['开了 30 多年，芋头饭配猪杂汤','咖啡店 7:30am–4:30pm，星期一休息'],g:G('Sentosa Corner Coffee Shop Bukit Mertajam'),w:W('Sentosa Corner Coffee Shop Bukit Mertajam')},
+ {t:'3:30pm',n:'开车去怡保',p:['约 2 小时，约 5:30pm 到。晚餐在怡保自己找'],drive:1}
+]};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ic={w:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9 9 0 0 0-9 9c0 3 1.5 4.6 2.6 5.5.3 1.8 1.7 2.5 3 2.5 1 0 1.7-.6 2-1.3h3c.3.7 1 1.3 2 1.3 1.6 0 2.6-1.1 2.8-2.4C20 15.3 21 13.6 21 11a9 9 0 0 0-9-9Zm-3 8a1.2 1.2 0 1 1 0-2.4A1.2 1.2 0 0 1 9 10Zm6 0a1.2 1.2 0 1 1 0-2.4A1.2 1.2 0 0 1 15 10Zm-6.3 2.4h6.6c-.4 1.7-1.7 2.8-3.3 2.8s-2.9-1.1-3.3-2.8Z"/></svg>',
+ g:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>'};
+const btns=(w,g)=>(w||g)?'<div class="go">'+(w?'<a class="wz" href="'+esc(wLink(w))+'">'+ic.w+'Waze</a>':'')+(g?'<a class="gm" href="'+esc(g)+'">'+ic.g+'Google 地图</a>':'')+'</div>':'';
+for(const k in D){
+ document.getElementById(k).innerHTML=D[k].map(s=>
+  '<div class="stop'+(s.drive?' drive':'')+'"><div class="t">'+esc(s.t)+(s.e?'<small>'+esc(s.e)+'</small>':'')+'</div><div class="body"><b>'+esc(s.n)+'</b>'+
+  s.p.map(x=>'<p>'+esc(x)+'</p>').join('')+(s.must?'<p class="must">'+esc(s.must)+'</p>':'')+btns(s.w,s.g)+(s.rm?'<p class="rm">Remark：'+esc(s.rm)+'</p>':'')+(s.x?'<div class="extra">'+document.getElementById(s.x).innerHTML+'</div>':'')+
+  (s.alt?'<div class="alt">'+esc(s.alt.n)+btns(s.alt.w,s.alt.g)+'</div>':'')+'</div></div>').join('');
+}
+const ids=['prep','day1','day2','day3','sos'];
+const show=()=>{const h=location.hash.slice(1);const id=ids.includes(h)?h:'day1';
+ for(const s of document.querySelectorAll('section'))s.classList.toggle('on',s.id===id);
+ for(const a of document.querySelectorAll('#tabs a'))a.setAttribute('aria-current',a.getAttribute('href')==='#'+id);
+ const cur=document.querySelector('#tabs a[aria-current=true]');if(cur)cur.scrollIntoView({inline:'nearest',block:'nearest'});};
+window.addEventListener('hashchange',()=>{show();window.scrollTo(0,0)});show();
+for(const ul of document.querySelectorAll('.check')){
+ const key='pg-'+ul.dataset.list;let st=[];try{st=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){}
+ const boxes=[...ul.querySelectorAll('input')];boxes.forEach((b,i)=>{b.checked=!!st[i];b.addEventListener('change',()=>{try{localStorage.setItem(key,JSON.stringify(boxes.map(x=>x.checked)))}catch(e){}})});
+}
+}
+</script>
+</body>
+</html>
