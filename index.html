@@ -169,7 +169,7 @@ footer{color:var(--mute);font-size:13px;text-align:center;padding:0 16px 30px}
 <script>
 {
 const G=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
-const W=q=>({p:'q='+encodeURIComponent(q)+'&navigate=yes',c:q});
+const W=q=>({p:'q='+encodeURIComponent(q),c:q});
 const isAndroid=/Android/i.test(navigator.userAgent);
 const wLink=w=>{const web='https://www.waze.com/ul?'+w.p;return web};
 const D={
@@ -198,7 +198,7 @@ d2:[
 d3:[
  {t:'11:00am',n:'退房，行李上车，直接出门',p:['11am 退房时间到']},
  {t:'11:15am',n:'早午餐：Zim Sum 点心',p:['6:30am–1:30pm，星期二休息。吃约 45 分钟'],g:G('Zim Sum Jalan Macalister Penang'),w:W('Zim Sum Jalan Macalister')},
- {t:'12:00pm',n:'槟城州立博物馆分馆',p:['点心店对面，走路过去','11/30 前免费。后面交通馆有人力车和旧升旗山缆车车厢。逛约 40 分钟'],g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:{p:'ll=5.4150027,100.3254963&navigate=yes',c:'Penang State Museum 57 Jalan Macalister'}},
+ {t:'12:00pm',n:'槟城州立博物馆分馆',p:['点心店对面，走路过去','11/30 前免费。后面交通馆有人力车和旧升旗山缆车车厢。逛约 40 分钟'],g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:{p:'ll=5.4150027,100.3254963',c:'Penang State Museum 57 Jalan Macalister'}},
  {t:'12:45pm',n:'买手信：Him Heang',p:['豆沙饼、马蹄酥。一个人进去买就好'],g:G('Him Heang Jalan Burma Penang'),w:W('Him Heang Jalan Burma')},
  {t:'1:05pm',n:'卧佛寺 Wat Chayamangkalaram',p:['免费，约 30 分钟。进殿要脱鞋，对面是缅甸寺'],g:G('Wat Chayamangkalaram Penang'),w:W('Wat Chayamangkalaram')},
  {t:'1:35pm',n:'过桥去大山脚',p:['约 1 小时 10 分钟'],must:'1:35pm 一定要出发',drive:1},
