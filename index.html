@@ -41,6 +41,7 @@ h2{font-size:24px;line-height:1.2;margin:8px 0 4px}
 .body>b{font-size:17px;display:block;line-height:1.35}
 .body p{margin:4px 0 0;color:var(--mute);font-size:15px}
 .body p.must{color:var(--coral);font-weight:700}
+.body p.addr,.alt p.addr{margin-top:8px;font-size:13px;line-height:1.45;color:var(--mute);-webkit-user-select:all;user-select:all}
 .go{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .go a{display:flex;justify-content:center;align-items:center;gap:6px;white-space:nowrap;min-height:44px;padding:0 14px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px}
 .go .wz{background:var(--sea);color:#fff}.go .gm{border:1px solid var(--line);color:var(--ink)}
@@ -100,6 +101,7 @@ footer{color:var(--mute);font-size:13px;text-align:center;padding:0 16px 30px}
     <li><label><input type="checkbox"><span>两位司机手机装 <b>Penang Smart Parking</b> app（岛上路边停车用，RM0.60 / 30 分钟）</span></label></li>
     <li><label><input type="checkbox"><span>11/27（五）<b>9am–3pm</b> 去 <b>CS Lounge</b> 拿 <b>CS Yearbook</b></span></label></li>
   </ul>
+  <p class="sub" style="margin-top:14px">Waze 按钮只会在地图上放一个标记，<b>要自己按 Go 才开始导航</b>。地址可以长按复制。</p>
 </section>
 
 <section id="day1">
@@ -169,51 +171,60 @@ footer{color:var(--mute);font-size:13px;text-align:center;padding:0 16px 30px}
 <script>
 {
 const G=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
-const W=q=>({p:'q='+encodeURIComponent(q),c:q});
-const isAndroid=/Android/i.test(navigator.userAgent);
-const wLink=w=>{const web='https://www.waze.com/ul?'+w.p;return web};
+/* Waze：只用坐标（ll=），不加 navigate=yes，打开后只放标记，要自己按 Go */
+const W=(lat,lng)=>({p:'ll='+lat+','+lng});
+const wLink=w=>'https://www.waze.com/ul?'+w.p;
 const D={
 d1:[
- {t:'2:00pm',n:'午餐：乐园饭店（煮炒）',p:['必点：招牌豆腐、咖喱鱼肉、芙蓉蛋','星期三休息'],must:'午餐 2:15pm 就收，2pm 到的话就直接去乐轩',g:G('Look Yuen Restaurant Bukit Mertajam'),w:W('Restoran Look Yuen Bukit Mertajam'),
-  alt:{n:'后备：乐轩 Lok Hin（Auto City，11am–11pm，就在大道旁）',g:'https://maps.app.goo.gl/zLsqkNwHtSqZgYBWA',w:W('Lok Hin Auto City Juru Perai')}},
+ {t:'2:00pm',n:'午餐：乐园饭店（煮炒）',p:['必点：招牌豆腐、咖喱鱼肉、芙蓉蛋','星期三休息'],must:'午餐 2:15pm 就收，2pm 到的话就直接去乐轩',
+  a:'2, Tingkat Kerjasama 4, Taman Kerjasama, Bukit Tengah, 14000 Bukit Mertajam',g:G('Look Yuen Restaurant Bukit Mertajam'),w:W(5.361256,100.425588),
+  alt:{n:'后备：乐轩 Lok Hin（Auto City，11am–11pm，就在大道旁）',a:'Unit FM-A1, Plot 3, Jalan Perusahaan, Auto-City, 13600 Perai',g:'https://maps.app.goo.gl/zLsqkNwHtSqZgYBWA',w:W(5.3375526,100.4278359)}},
  {t:'2:45pm',n:'过槟城大桥',p:['约 30 分钟'],drive:1},
- {t:'3:15pm',n:'入住 Urban Suites，休息',p:['休息约 1.5 小时'],g:G('Urban Suites Jalan Ahmad Nor Penang'),w:W('Urban Suites Jalan Ahmad Nor Penang'),x:'bnb'},
- {t:'4:45pm',e:'到 7:45pm',n:'升旗山：坐缆车上山看日落',p:['开车去下站约 20 分钟','停车：入口左边的 building 有付费停车场（第 1 小时 RM2，之后每小时 RM1），也可以停路边','5:15pm 坐缆车上山，山顶走走，约 7pm 看日落'],must:'7:20pm 下山，日落后排队最久',g:G('Penang Hill Lower Station'),w:W('Penang Hill Lower Station'),x:'fares'},
- {t:'8:15pm',n:'晚餐：義蓮 Green Tomyam（鱼头米粉、青冬阴）',p:['6–10pm'],rm:'只收现金',g:'https://maps.app.goo.gl/gBdW2Yi4mZxRaDgk7',w:W('Medan Renong Jalan Tun Syed Sheh Barakbah George Town')},
- {t:'9:15pm',n:'Esplanade 海边散步，钟楼、市政厅夜景',p:[]},
+ {t:'3:15pm',n:'入住 Urban Suites，休息',p:['休息约 1.5 小时'],a:'Urban Suites, Jalan Ahmad Nor, 11600 Jelutong, Pulau Pinang（1B 座）',g:G('Urban Suites Jalan Ahmad Nor Penang'),w:W(5.3888834,100.3168974),x:'bnb'},
+ {t:'4:45pm',e:'到 7:45pm',n:'升旗山：坐缆车上山看日落',p:['开车去下站约 20 分钟','停车：入口左边的 building 有付费停车场（第 1 小时 RM2，之后每小时 RM1），也可以停路边','5:15pm 坐缆车上山，山顶走走，约 7pm 看日落'],must:'7:20pm 下山，日落后排队最久',
+  a:'Penang Hill Lower Station, Jalan Bukit Bendera, 11500 Ayer Itam',g:G('Penang Hill Lower Station'),w:W(5.4082091,100.2771278),x:'fares'},
+ {t:'8:15pm',n:'晚餐：義蓮 Green Tomyam（鱼头米粉、青冬阴）',p:['6–10pm'],rm:'只收现金',
+  a:'Lot 39, Medan Renong (Padang Kota Lama), Jalan Tun Syed Sheh Barakbah, 10200 George Town',g:'https://maps.app.goo.gl/gBdW2Yi4mZxRaDgk7',w:W(5.4229231,100.3407113)},
+ {t:'9:15pm',n:'Esplanade 海边散步，钟楼、市政厅夜景',p:['就在 Medan Renong 旁边，走路过去']},
  {t:'9:45pm',n:'回住处',p:[],drive:1}
 ],
 d2:[
- {t:'9:30am',n:'早餐：七条路巴刹',p:['南来鸭肉粿条汤、赤脚炒粿条、娘惹糕'],g:G('Cecil Street Market Penang'),w:W('Cecil Street Market Penang')},
+ {t:'9:30am',n:'早餐：七条路巴刹',p:['南来鸭肉粿条汤、赤脚炒粿条、娘惹糕'],a:'Cecil Street Food Court, 40-48 Lebuh Cecil, 10300 George Town',g:G('Cecil Street Market Penang'),w:W(5.4074633,100.3287001)},
  {t:'11:00am',n:'回住处休息，换正装',p:['带 2 张邀请卡']},
  {t:'12:15pm',n:'两辆车出发去午餐',p:[],drive:1},
- {t:'12:40pm',n:'午餐：客家面',p:['Waze 请用店名搜索'],must:'1:40pm 一定要出发',g:'https://maps.app.goo.gl/JxtkJmf3PFQywgE39'},
- {t:'1:50pm',n:'到达 DTSP',p:['送毕业生 + 2 位嘉宾进去，USM 难停车','2:00pm 登记','3:30–5:30pm 毕业典礼'],g:G('Dewan Tuanku Syed Putra USM'),w:W('Dewan Tuanku Syed Putra USM'),rm:'嘉宾中途不能离场，不能带花或礼物进厅'},
- {t:'1:50pm',e:'到 5:05pm',n:'另外 4 人：槟城数码图书馆',p:['开车约 10–15 分钟。有冷气、儿童区、cafe'],must:'5:05pm 出发回 USM',g:G('Penang Digital Library Jalan Masjid Negeri'),w:W('Penang Digital Library')},
+ {t:'12:40pm',n:'午餐：客家面',p:['店名、地址待补。Waze 请用 Google 地图里看到的店名搜索'],must:'1:40pm 一定要出发',g:'https://maps.app.goo.gl/JxtkJmf3PFQywgE39'},
+ {t:'1:50pm',n:'到达 DTSP',p:['送毕业生 + 2 位嘉宾进去，USM 难停车','2:00pm 登记','3:30–5:30pm 毕业典礼'],
+  a:'Dewan Tuanku Syed Putra, Universiti Sains Malaysia, Jalan Sungai Dua, 11800 Gelugor',g:G('Dewan Tuanku Syed Putra USM'),w:W(5.356772,100.3033013),rm:'嘉宾中途不能离场，不能带花或礼物进厅'},
+ {t:'1:50pm',e:'到 5:05pm',n:'另外 4 人：槟城数码图书馆',p:['开车约 10–15 分钟。有冷气、儿童区、cafe，免费停车'],must:'5:05pm 出发回 USM',
+  a:'Penang Digital Library, 135 Jalan Masjid Negeri, 11600 George Town',g:G('Penang Digital Library Jalan Masjid Negeri'),w:W(5.4050527,100.3040439)},
  {t:'5:30pm',n:'7 人一起拍照',p:['拍完还袍和卡']},
  {t:'6:30pm',n:'回住处换衣服',p:['约 25 分钟'],drive:1},
- {t:'7:15pm',n:'晚餐：Van Praagh 星期五夜市',p:['离住处约 5 分钟。没有停车场，开 1 辆车或叫 Grab','推荐炒粿条'],g:G('Pasar Malam Van Praagh Jelutong'),w:W('Jalan Van Praagh Jelutong')},
+ {t:'7:15pm',n:'晚餐：Van Praagh 星期五夜市',p:['离住处约 5 分钟。没有停车场，开 1 辆车或叫 Grab','推荐炒粿条'],
+  a:'52, Jalan Van Praagh, Taman Continental, 11600 George Town',g:G('Pasar Malam Van Praagh Jelutong'),w:W(5.3967941,100.3137602)},
  {t:'9:30pm',n:'回住处',p:[],drive:1}
 ],
 d3:[
  {t:'11:00am',n:'退房，行李上车，直接出门',p:['11am 退房时间到']},
- {t:'11:15am',n:'早午餐：Zim Sum 点心',p:['6:30am–1:30pm，星期二休息。吃约 45 分钟'],g:G('Zim Sum Jalan Macalister Penang'),w:W('Zim Sum Jalan Macalister')},
- {t:'12:00pm',n:'槟城州立博物馆分馆',p:['点心店对面，走路过去','11/30 前免费。后面交通馆有人力车和旧升旗山缆车车厢。逛约 40 分钟'],g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:{p:'ll=5.4150027,100.3254963',c:'Penang State Museum 57 Jalan Macalister'}},
- {t:'12:45pm',n:'买手信：Him Heang',p:['豆沙饼、马蹄酥。一个人进去买就好'],g:G('Him Heang Jalan Burma Penang'),w:W('Him Heang Jalan Burma')},
- {t:'1:05pm',n:'卧佛寺 Wat Chayamangkalaram',p:['免费，约 30 分钟。进殿要脱鞋，对面是缅甸寺'],g:G('Wat Chayamangkalaram Penang'),w:W('Wat Chayamangkalaram')},
+ {t:'11:15am',n:'早午餐：Zim Sum 点心',p:['6:30am–1:30pm，星期二休息。吃约 45 分钟'],a:'62, Jalan Macalister, 10400 George Town',g:G('Zim Sum Jalan Macalister Penang'),w:W(5.4150098,100.3271176)},
+ {t:'12:00pm',n:'槟城州立博物馆分馆',p:['点心店对面，走路过去','11/30 前免费。后面交通馆有人力车和旧升旗山缆车车厢。逛约 40 分钟'],
+  a:'57, Jalan Macalister, 10400 George Town',g:'https://maps.app.goo.gl/eSZD4yX1YjKQE8qt6',w:W(5.4150027,100.3254963)},
+ {t:'12:45pm',n:'买手信：Him Heang',p:['豆沙饼、马蹄酥。一个人进去买就好','星期六 9am–4pm（星期日休息）'],a:'162A, Jalan Burma, 10050 George Town',g:G('Him Heang Jalan Burma Penang'),w:W(5.4240952,100.3213496)},
+ {t:'1:05pm',n:'卧佛寺 Wat Chayamangkalaram',p:['免费，约 30 分钟。进殿要脱鞋，对面是缅甸寺'],a:'17, Lorong Burma, Pulau Tikus, 10250 George Town',g:G('Wat Chayamangkalaram Penang'),w:W(5.4316735,100.3138109)},
  {t:'1:35pm',n:'过桥去大山脚',p:['约 1 小时 10 分钟'],must:'1:35pm 一定要出发',drive:1},
- {t:'2:45pm',n:'午餐：Sentosa 芋头饭（Sentosa Corner 咖啡店）',p:['开了 30 多年，芋头饭配猪杂汤','咖啡店 7:30am–4:30pm，星期一休息'],g:G('Sentosa Corner Coffee Shop Bukit Mertajam'),w:W('Sentosa Corner Coffee Shop Bukit Mertajam')},
+ {t:'2:45pm',n:'午餐：Sentosa 芋头饭（Sentosa Corner 咖啡店）',p:['开了 30 多年，芋头饭配猪杂汤','咖啡店 7:30am–4:30pm，星期一休息'],
+  a:'1, Jalan Sentosa, Taman Sentosa, 14000 Bukit Mertajam',g:G('Sentosa Corner Coffee Shop Bukit Mertajam'),w:W(5.3537066,100.4722328)},
  {t:'3:30pm',n:'开车去怡保',p:['约 2 小时，约 5:30pm 到。晚餐在怡保自己找'],drive:1}
 ]};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ic={w:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9 9 0 0 0-9 9c0 3 1.5 4.6 2.6 5.5.3 1.8 1.7 2.5 3 2.5 1 0 1.7-.6 2-1.3h3c.3.7 1 1.3 2 1.3 1.6 0 2.6-1.1 2.8-2.4C20 15.3 21 13.6 21 11a9 9 0 0 0-9-9Zm-3 8a1.2 1.2 0 1 1 0-2.4A1.2 1.2 0 0 1 9 10Zm6 0a1.2 1.2 0 1 1 0-2.4A1.2 1.2 0 0 1 15 10Zm-6.3 2.4h6.6c-.4 1.7-1.7 2.8-3.3 2.8s-2.9-1.1-3.3-2.8Z"/></svg>',
  g:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>'};
+const addr=a=>a?'<p class="addr">📍 '+esc(a)+'</p>':'';
 const btns=(w,g)=>(w||g)?'<div class="go">'+(w?'<a class="wz" href="'+esc(wLink(w))+'">'+ic.w+'Waze</a>':'')+(g?'<a class="gm" href="'+esc(g)+'">'+ic.g+'Google 地图</a>':'')+'</div>':'';
 for(const k in D){
  document.getElementById(k).innerHTML=D[k].map(s=>
   '<div class="stop'+(s.drive?' drive':'')+'"><div class="t">'+esc(s.t)+(s.e?'<small>'+esc(s.e)+'</small>':'')+'</div><div class="body"><b>'+esc(s.n)+'</b>'+
-  s.p.map(x=>'<p>'+esc(x)+'</p>').join('')+(s.must?'<p class="must">'+esc(s.must)+'</p>':'')+btns(s.w,s.g)+(s.rm?'<p class="rm">Remark：'+esc(s.rm)+'</p>':'')+(s.x?'<div class="extra">'+document.getElementById(s.x).innerHTML+'</div>':'')+
-  (s.alt?'<div class="alt">'+esc(s.alt.n)+btns(s.alt.w,s.alt.g)+'</div>':'')+'</div></div>').join('');
+  s.p.map(x=>'<p>'+esc(x)+'</p>').join('')+(s.must?'<p class="must">'+esc(s.must)+'</p>':'')+addr(s.a)+btns(s.w,s.g)+(s.rm?'<p class="rm">Remark：'+esc(s.rm)+'</p>':'')+(s.x?'<div class="extra">'+document.getElementById(s.x).innerHTML+'</div>':'')+
+  (s.alt?'<div class="alt">'+esc(s.alt.n)+addr(s.alt.a)+btns(s.alt.w,s.alt.g)+'</div>':'')+'</div></div>').join('');
 }
 const ids=['prep','day1','day2','day3','sos'];
 const show=()=>{const h=location.hash.slice(1);const id=ids.includes(h)?h:'day1';
